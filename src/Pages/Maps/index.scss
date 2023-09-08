@@ -1,16 +1,16 @@
-    .home {
+    .mapPage {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         .mapView {
-            width: 80%;
+            width: 100%;
             display: flex;
             flex-direction: column;
             .map {
-                background: 100%;
+                width: 100%;
                 border-radius: 5px;
-                border: 2px solid black;
-                height: 80vh;
+                // border: 2px solid black;
+                height: 93vh;
             }
         }
     }

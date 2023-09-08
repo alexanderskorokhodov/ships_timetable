@@ -4,4 +4,13 @@
     padding: 0.5em 0em;
     border-radius: $borderRadius1;
     margin: 0.5em;
+    color: gray;
+}
+
+.navbutton:hover {
+    color: $blue;
+}
+
+.chose {
+    color: $blue;
 }

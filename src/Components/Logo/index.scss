@@ -1,3 +1,12 @@
+@import "../../styles/variables.scss";
 .logo {
     margin: 0.5em 1em;
+    color: $blue;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    .logoImg {
+        height: 1.7em;
+        margin: 0.4em 1em;
+    }
 }

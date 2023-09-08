@@ -7,7 +7,9 @@ function Home() {
 
   return (
     <div className="home">
-      MAIN
+      <img src='bg.jpg'/>
+      <img src='bg1.jpg'/>
+      <img src='bg2.jpg'/>
     </div>
   );
 }

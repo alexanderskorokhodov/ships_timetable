@@ -1,21 +1,308 @@
 import "./index.scss";
 import React, { useEffect } from "react";
-import { YMaps, Map } from "@pbe/react-yandex-maps";
+import { YMaps, Map, GeoObject } from "@pbe/react-yandex-maps";
 
 function Home() {
-  return (
-    <div className="home">
-      <div className="mapView">
-        <div className="map">
-          <YMaps>
-            <div>My awesome application with maps!</div>
 
-            <Map defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
+  const json_data = {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 1
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              46.142578125,
+              69.93030017617484,
+            ],
+            [
+              57.74414062500001,
+              70.4367988185464
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 2
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              57.74414062500001,
+              70.4367988185464
+            ],
+            [
+              66.20361328125,
+              73.53462847039683
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 3
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              66.20361328125,
+              73.53462847039683
+            ],
+            [
+              71.54296874999999,
+              73.77577986189993
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 4
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              46.142578125,
+              69.93030017617484
+            ],
+            [
+              55.01953125,
+              76.2059670431415
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 5
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              55.01953125,
+              76.2059670431415
+            ],
+            [
+              68.90625,
+              77.44694030325893
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 6
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              68.90625,
+              77.44694030325893
+            ],
+            [
+              71.54296874999999,
+              73.77577986189993
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 7
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              71.54296874999999,
+              73.77577986189993
+            ],
+            [
+              73.125,
+              72.76406472320436
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 8
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              73.125,
+              72.76406472320436
+            ],
+            [
+              74.02587890625,
+              72.63337363853837
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 9
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              74.02587890625,
+              72.63337363853837
+            ],
+            [
+              72.92724609375,
+              72.0739114882038
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 10
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              72.92724609375,
+              72.0739114882038
+            ],
+            [
+              72.59765625,
+              71.30783606806223
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 11
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              72.59765625,
+              71.30783606806223
+            ],
+            [
+              72.2021484375,
+              71.24435551310674
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 12
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              72.59765625,
+              71.30783606806223
+            ],
+            [
+              73.32275390625,
+              70.9722375547307
+  
+  ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 13
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              73.32275390625,
+              70.9722375547307
+            ],
+            [
+              73.7127685546875,
+              71.03303495416577
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": 14
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              73.32275390625,
+              70.9722375547307
+            ],
+            [
+              73.52874755859375,
+              68.66455067163206
+            ]
+          ]
+        }
+      }
+    ]
+  }
+  let linesView = []
+  json_data.features.forEach(element => {
+    linesView.push(<GeoObject
+      geometry={{
+        type: "LineString",
+        coordinates: 
+          [element.geometry.coordinates[0].reverse(), element.geometry.coordinates[1].reverse() ]
+        ,
+      }}
+      options={{
+        geodesic: true,
+        strokeWidth: 5,
+        strokeColor: "#142782",
+      }}
+    />)
+  });
+
+  return (
+    <div className="mapPage">
+          <YMaps>
+            <Map
+              defaultState={{ center: [73, 65], zoom: 5.4 }}
+              style={{ width: "100%", height: "94vh" }}
+            >
+            {linesView}
+            </Map>
           </YMaps>
-        </div>
-        <div>scroll</div>
-      </div>
-      <div>Some additional</div>
     </div>
   );
 }
