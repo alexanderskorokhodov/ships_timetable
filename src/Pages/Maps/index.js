@@ -303,6 +303,7 @@ function Home() {
             {linesView}
             </Map>
           </YMaps>
+          <div className="floatwindow">Float window</div>
     </div>
   );
 }
