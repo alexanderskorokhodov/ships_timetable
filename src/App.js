@@ -10,6 +10,8 @@ import React from "react";
 
 // pages
 import Main from "./Pages/Main";
+import Timetable from "./Pages/Timetable";
+import Maps from "./Pages/Maps";
 import Navbar from "./Components/Navbar"
 
 // router
@@ -25,10 +27,12 @@ function App() {
   return (
     <div className={`App`}>
 
-    <Navbar></Navbar>
+    <Navbar />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Main/>} />
+            <Route path="/maps" element={<Maps/>} />
+            <Route path="/timetable" element={<Timetable/>} />
           </Routes>
         </BrowserRouter>
     </div>

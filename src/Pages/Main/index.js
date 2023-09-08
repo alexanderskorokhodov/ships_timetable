@@ -1,4 +1,4 @@
-import '../styles/Main.scss';
+import './index.scss';
 import React, { useEffect } from "react";
 
 function Home() {

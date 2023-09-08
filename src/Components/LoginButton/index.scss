@@ -1,0 +1,10 @@
+@import "../../styles/variables.scss";
+.loginButton {
+    background: $buttonLoginbg;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    padding: 1em 1em;
+    margin: 0.5em 1em;
+}
