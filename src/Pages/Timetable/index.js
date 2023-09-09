@@ -7,15 +7,51 @@ function Home() {
 
   let tasks = [
     {
-      start: new Date(2020, 1, 1),
-      end: new Date(2020, 1, 2),
+      start: new Date(2023, 9, 2, 12),
+      end: new Date(2023, 9, 2, 3),
       name: 'Idea',
       id: 'Task 0',
       type:'task',
-      progress: 45,
       isDisabled: true,
       styles: { progressColor: '#ffbb54', progressSelectedColor: '#ff9e0d' },
-    }
+    },
+    {
+      start: new Date(2023, 9, 6, 12),
+      end: new Date(2023, 9, 14, 3),
+      name: 'Idea',
+      id: 'Task 0',
+      type:'task',
+      isDisabled: true,
+      styles: { progressColor: '#ffbb54', progressSelectedColor: '#ff9e0d' },
+    },
+    {
+      start: new Date(2023, 9, 2, 23),
+      end: new Date(2023, 9, 3, 3),
+      name: 'Idea',
+      id: 'Task 0',
+      type:'task',
+      isDisabled: true,
+      styles: { progressColor: '#ffbb54', progressSelectedColor: '#ff9e0d' },
+    },
+    {
+      start: new Date(2023, 9, 2, 12),
+      end: new Date(2023, 9, 5, 3),
+      name: 'Idea',
+      id: 'Task 0',
+      type:'task',
+      isDisabled: true,
+      styles: { progressColor: '#ffbb54', progressSelectedColor: '#ff9e0d' },
+    },
+    {
+      start: new Date(2023, 9, 2, 12),
+      end: new Date(2023, 9, 4, 3),
+      name: 'Idea',
+      id: 'Task 0',
+      type:'event',
+      isDisabled: true,
+      styles: { progressColor: '#ffbb54', progressSelectedColor: '#ff9e0d' },
+    },
+    
 ];
 
   useEffect(()=>{
@@ -35,7 +71,7 @@ function Home() {
   return (
     <div className="home">
       
-  <Gantt tasks={tasks} />
+  <Gantt tasks={tasks} EventOption={{timeStep: 3}} DisplayOption={{viewMode: "Month"}} />
     </div>
   );
 }
