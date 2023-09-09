@@ -3,13 +3,19 @@
     top: 1em;
     left: 1em;
     padding: 1em;
-    width: 20%;
-    height: 45vh;
+    width: 25%;
+    max-height: 45vh;
     border-radius: 5px;
     // border: solid black 1px;
     background-color: rgb(255 255 255 / 0.3);
     backdrop-filter: blur(10px);
     overflow-y: scroll;
+    user-select: none;
+    .top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
     .cruises {
         .cruise {
             padding: 1em;
@@ -17,12 +23,10 @@
             border: 1px solid gray;
             margin-top: 1em;
         }
-    }
-    .cruiseinfo {
-        .top {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+        .cruise:hover {
+            border: 2px solid black;
+            background: rgba(255, 255, 255, 0.3);
         }
     }
+    .cruiseinfo {}
 }
