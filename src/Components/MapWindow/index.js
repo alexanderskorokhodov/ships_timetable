@@ -102,9 +102,9 @@ function MapWindow() {
           changeState(json_data.indexOf(element));
         }}
       >
-        <h4>Рейс №{element.id}</h4>
-        <p>Начало: {element.start}</p>
-        <p>Конец: {element.end}</p>
+        <p className="cruise-id">Рейс №{element.id}</p>
+        <p className="cruise-date">Начало: {element.start}</p>
+        <p className="cruise-date">Конец: {element.end}</p>
       </div>
     );
   });
@@ -116,7 +116,7 @@ function MapWindow() {
       {state < 0 ? (
         <div className="recomendations">
           <div className="top">
-            <h4>Рекомендации для рейсов</h4>
+            <p className="top-title">Рекомендации для рейсов</p>
             <img
               className="pointer"
               src={state === -2 ? "plus.svg" : "minus.svg"}
