@@ -1,6 +1,7 @@
 import "./index.scss";
 import React, { useEffect } from "react";
 import { YMaps, Map, GeoObject } from "@pbe/react-yandex-maps";
+import MapWindow from "../../Components/MapWindow";
 
 function Home() {
 
@@ -302,8 +303,8 @@ function Home() {
             >
             {linesView}
             </Map>
+            <MapWindow/>
           </YMaps>
-          <div className="floatwindow">Float window</div>
     </div>
   );
 }
