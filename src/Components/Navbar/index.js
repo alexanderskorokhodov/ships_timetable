@@ -7,13 +7,14 @@ import LoginButton from "../LoginButton"
 function Navbar() {
 
 
-    return <div className="navbar">
+    return <div><div className="navbar">
         <Logo/>
+        <LoginButton/>
+    </div><div className="navbar-low">
         <NavButton text="Расписание" path="/timetable"/>
         <NavButton text="Карта" path="/maps"/>
         <NavButton text="История" path="/history"/>
-        <LoginButton/>
-    </div>
+    </div></div>
 }
 
 export default Navbar
