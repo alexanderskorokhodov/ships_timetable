@@ -15,7 +15,7 @@ function App({onAdded}) {
         const date = new Date()
         const rows = csv.split(/\r?\n/);
         let data_ = rows.map((row) => row.split(","));
-        data_ = data_.slice(1)
+        // data_ = data_.slice(1)
         // console.log(data_)
         setData(data_);
         let cached = localStorage.getItem("cached_data")

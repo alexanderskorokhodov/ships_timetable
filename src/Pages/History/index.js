@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./index.scss";
 import CSVInterface from "../../Components/CSVLoader"
 
-
+import Service from "../../Service";
 
 
 const History = () => {
+
+    const service = new Service()
 
     const [data, setData] = useState(JSON.parse(localStorage.getItem("cached_data")))
 
@@ -34,6 +36,7 @@ const History = () => {
     }
 
     function onRemoveClick(props){
+        
         let index = 0;
         data.forEach((item, i) => {
             if(item.filename === props.filename){
@@ -58,7 +61,8 @@ const History = () => {
 
     const onAdded = (arr) => {
         setData(JSON.parse(localStorage.getItem("cached_data")))
-        window.location.reload()
+        service.upload(arr).then(()=>{window.location.reload()})
+        
     }
     // useEffect(()=>{}, data)
     const output = data.map((props,i) => 
@@ -66,10 +70,10 @@ const History = () => {
             <div className="history__archived__route__wrapper__header">
                 <div className="history__archived__route__filename">{props.filename}</div>
                 <div className="history__archived__route__wrapper__icons">
-                    <img onClick={()=>{
+                    <img alt="" onClick={()=>{
                         onFavoriteClick(props)
                         }}  src={props.favorite ? "SelectedStar.svg" : "Star.svg"} className="history__archived__route__btn"/>
-                    <img src="close.svg" onClick={()=>{onRemoveClick(props)}} className="history__archived__route__btn"/>
+                    <img alt="" src="close.svg" onClick={()=>{onRemoveClick(props)}} className="history__archived__route__btn"/>
                 </div>
             </div>
             <div className="history__archived__route__wrapper__body">

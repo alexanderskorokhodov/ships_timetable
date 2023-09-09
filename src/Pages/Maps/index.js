@@ -1,9 +1,11 @@
 import "./index.scss";
 import React, { useEffect } from "react";
-import { YMaps, Map, GeoObject } from "@pbe/react-yandex-maps";
+import { YMaps, Map, GeoObject, TypeSelector, Placemark } from "@pbe/react-yandex-maps";
 import MapWindow from "../../Components/MapWindow";
 
 function Home() {
+
+  
 
   const json_data = {
     "type": "FeatureCollection",
@@ -288,11 +290,13 @@ function Home() {
       }}
       options={{
         geodesic: true,
-        strokeWidth: 5,
-        strokeColor: "#142782",
+        strokeWidth: 4,
+        strokeColor: "#00FF7F",
       }}
     />)
   });
+
+  
 
   return (
     <div className="mapPage">
@@ -300,8 +304,74 @@ function Home() {
             <Map
               defaultState={{ center: [73, 65], zoom: 5.4 }}
               style={{ width: "100%", height: "89vh" }}
+              modules={ [ 'geoObject.addon.balloon', 'geoObject.addon.hint' ]}
             >
             {linesView}
+      <TypeSelector options={{ float: "right" }} />
+      <Placemark
+        displayName="Саббета 1"
+          geometry={[
+            68.66455067163206,73.52874755859375,
+            
+            ]}
+            options={{
+              
+              iconImageSize: [30, 30],
+              draggable: false,
+              preset: "islands#greenIcon",
+              hideIconOnBalloonOpen: false,
+              openEmptyHint: true,
+              
+              iconLayout: 'default#image',
+              // Своё изображение иконки метки.
+              iconImageHref: 'home.png',
+            }}
+            properties={{hintContent: "Саббета 1"}}
+        />
+        <Placemark
+
+          geometry={[
+            71.03303495416577,
+            73.7127685546875,
+            
+            ]}
+          options={{
+            iconImageSize: [30, 30],
+            draggable: false,
+            preset: "islands#greenIcon",
+            
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: 'home.png',
+          }}
+          properties={{
+            hintContent: "Саббета 2"}}
+        />
+        <Placemark
+
+hintContent="Саббета 2"
+          geometry={[
+            
+            71.24435551310674,
+            72.2021484375,
+            
+            ]}
+            options={{
+              iconImageSize: [30, 30],
+              draggable: false,
+              preset: "islands#greenIcon",
+              // hideIconOnBalloonOpen: false,
+              openEmptyHint: true,
+              
+              iconLayout: 'default#image',
+              // Своё изображение иконки метки.
+              iconImageHref: 'home.png',
+            }}
+            properties={{
+              hintContent: "Саббета 3",
+              balloonContent: '<div class="loc-desc"><img src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>'
+            }}
+        />
             </Map>
             <MapWindow/>
           </YMaps>
