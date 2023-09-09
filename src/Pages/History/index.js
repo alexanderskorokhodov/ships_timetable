@@ -1,65 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
-
+import CSVInterface from "../../Components/CSVLoader"
 
 
 
 
 const History = () => {
 
-    const cachedData = [
-        {
-            title:"Рейс №1",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "01.02.2002",
-            favorite: false
-        },
-        {
-            title:"Рейс №2",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "02.02.2002",
-            favorite: false
-        },
-        {
-            title:"Рейс №3",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "03.02.2002",
-            favorite: false
-        },
-        {
-            title:"Рейс №4",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "04.02.2002",
-            favorite: false
-        },
-        {
-            title:"Рейс №5",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "05.02.2002",
-            favorite: false
-        },
-        {
-            title:"Рейс №6",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "06.02.2002",
-            favorite: false
-        },
-        {
-            title:"Рейс №7",
-            started:"Пт, 1 сентября 2023",
-            ended: "Пт, 1 октября 2023",
-            date: "07.02.2002",
-            favorite: false
-        },
-    ]
-
-    const [data, setData] = useState(cachedData)
+    const [data, setData] = useState(JSON.parse(localStorage.getItem("cached_data")))
 
     const [change, onChange] = useState(true)
     const [searchText, setSearchText] = useState("")
@@ -67,16 +15,17 @@ const History = () => {
 
     function changeArray(arr){
         setData(arr)
+        localStorage.setItem("cached_data", JSON.stringify(arr))
         onChange(!change)
     }
 
     function onFavoriteClick(props){
         let index = 0
         let item = data.filter((item, i)=> {
-            if(item.title == props.title){
+            if(item.filename === props.filename){
                  index = i
                 }
-            return item.title == props.title
+            return item.filename === props.filename
         })[0]
         item.favorite = !item.favorite
         let arr = data
@@ -87,34 +36,35 @@ const History = () => {
     function onRemoveClick(props){
         let index = 0;
         data.forEach((item, i) => {
-            if(item.title == props.title){
+            if(item.filename === props.filename){
                 index = i
                 return
             }
         })
         changeArray(data.filter((item, i) => {
             let ff = item
-            return i != index 
+            return i !== index 
         }))
     }
 
     function onSearchText(text){
         setSearchText(text)
         changeArray(
-            cachedData.filter(item => {
+            data.filter(item => {
                 return item.date.includes(text)
             })
         )
     }
 
-
-    
-    
-
+    const onAdded = (arr) => {
+        setData(JSON.parse(localStorage.getItem("cached_data")))
+        window.location.reload()
+    }
+    // useEffect(()=>{}, data)
     const output = data.map((props,i) => 
         <div className="history__archived__route" key={i}>
             <div className="history__archived__route__wrapper__header">
-                <div className="history__archived__route__title">{props.title}</div>
+                <div className="history__archived__route__filename">{props.filename}</div>
                 <div className="history__archived__route__wrapper__icons">
                     <img onClick={()=>{
                         onFavoriteClick(props)
@@ -123,15 +73,19 @@ const History = () => {
                 </div>
             </div>
             <div className="history__archived__route__wrapper__body">
-            <div className="history__archived__route__text">Начало: {props.started}</div>
-            <div className="history__archived__route__text">Конец: {props.ended}</div>
+            {/* <div className="history__archived__route__text">Начало: {props.started}</div> */}
+            {/* <div className="history__archived__route__text">Конец: {props.ended}</div> */}
             </div>
-            <div className="history__archived__route__text text_end">{props.date}</div>
+            <div className="history__archived__route__text text_end">{props.time}</div>
         </div>
     )
 
     return(
         <div className="history">
+
+            <div className="container">
+                <CSVInterface onAdded={onAdded}/>
+            </div>
             <div className="container">
                 <div className="history__wrapper">
                     <div className="history__wrapper__search__bar">

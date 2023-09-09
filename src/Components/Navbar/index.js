@@ -13,7 +13,7 @@ function Navbar() {
     </div><div className="navbar-low">
         <NavButton text="Расписание" path="/timetable"/>
         <NavButton text="Карта" path="/maps"/>
-        <NavButton text="История" path="/history"/>
+        <NavButton text="Личный кабинет" path="/history"/>
     </div></div>
 }
 

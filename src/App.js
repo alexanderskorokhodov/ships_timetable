@@ -24,6 +24,9 @@ function App() {
   // theme references
   // const isDark = useColorScheme('dark');
   // const theme = isDark ? 'dark' : 'light';
+  if (localStorage.getItem("cached_data") === null) {
+    localStorage.setItem("cached_data", "[]")
+  }
 
   return (
     <div className={`App`}>
