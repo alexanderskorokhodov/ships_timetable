@@ -299,7 +299,7 @@ function Home() {
           <YMaps>
             <Map
               defaultState={{ center: [73, 65], zoom: 5.4 }}
-              style={{ width: "100%", height: "94vh" }}
+              style={{ width: "100%", height: "89vh" }}
             >
             {linesView}
             </Map>

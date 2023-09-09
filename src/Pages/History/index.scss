@@ -1,47 +1,45 @@
 @import "../../styles/variables.scss";
-
-.container{
-    width: 1220px;
+.container {
+    width: 80%;
     margin: 0 auto;
     overflow: hidden;
+    max-width: 40em;
 }
 
-
-.history{
-    margin-top: 45px;
-    &__search{
-        &__input{
-            width: 588px;
-            height: 45px;
-            border: none; /* <-- This thing here */
-            border:solid 1px #ccc;
+.history {
+    margin-top: 1em;
+    &__search {
+        &__input {
+            width: 80%;
+            height: 30px;
+            border: none;
+            /* <-- This thing here */
+            border: solid 1px #ccc;
             border-radius: 4px;
             color: $primaryTitle;
             padding: 15px;
             margin-right: 20px
-          }
-          &__filter__btn{
-            &:hover{
+        }
+        &__filter__btn {
+            &:hover {
                 cursor: pointer;
             }
-          }
-        &__group{
-            &__filter{
+        }
+        &__group {
+            &__filter {
                 display: flex;
                 flex-direction: row;
             }
         }
-
     }
-    
-    &__wrapper{
-        width: 670px;
-        &__search__bar{
+    &__wrapper {
+        width: 100%;
+        &__search__bar {
             display: flex;
             justify-content: space-between;
         }
-        &__archived__routes{
-            padding-top: 30px;
+        &__archived__routes {
+            padding: 0.3em 0em;
             margin-top: 54px;
             width: 100%;
             border-radius: 8px;
@@ -49,42 +47,36 @@
             background: rgba(243, 244, 247, 0.70);
         }
     }
-    &__archived__route{
+    &__archived__route {
         background: rgba(191, 208, 255, 0.60);
-        height: 88px;
-        margin-left: 12px;
-        margin-right: 30px;
-        padding-top: 13px;
-        padding-left: 19px;
-        padding-bottom: 6px;
-        padding-right: 16px;
-        margin-bottom: 6px;
-        &__title{
+        padding: 0.5em;
+        margin-bottom: 0.3em;
+        &__title {
             font-size: 14px;
             font-style: normal;
             color: $primaryTitle;
-
         }
-        &__text{
+        &__text {
             color: $secondPrimaryTitle;
             font-size: 12px;
         }
-        &__btn{
-            &:hover{
+        &__btn {
+            &:hover {
                 cursor: pointer;
             }
         }
-        &__wrapper{
-            &__header{
+        &__wrapper {
+            &__header {
                 display: flex;
                 justify-content: space-between;
             }
-            &__body{
+            &__body {
                 margin-top: 7px;
             }
-            &__icons{
-                width: 32px;
+            &__icons {
+                width: 3em;
                 display: flex;
+                margin-right: 0.3em;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
@@ -93,7 +85,7 @@
     }
 }
 
-.text_end{
+.text_end {
     width: 100%;
     text-align: end;
 }
