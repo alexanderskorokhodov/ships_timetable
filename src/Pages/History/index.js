@@ -14,6 +14,7 @@ const History = () => {
     const [change, onChange] = useState(true)
     const [searchText, setSearchText] = useState("")
     const [showFilters, setShowingFilters] = useState(false)
+    const [ch, setch] = useState(Number(localStorage.getItem('chosen')))
 
     function changeArray(arr){
         setData(arr)
@@ -21,25 +22,16 @@ const History = () => {
         onChange(!change)
     }
 
-    function onFavoriteClick(props){
-        let index = 0
-        let item = data.filter((item, i)=> {
-            if(item.filename === props.filename){
-                 index = i
-                }
-            return item.filename === props.filename
-        })[0]
-        item.favorite = !item.favorite
-        let arr = data
-        arr[index] = item
-        changeArray(arr)
+    function onFavoriteClick(i){
+        localStorage.setItem("chosen", i)
+        setch(i)
     }
 
     function onRemoveClick(props){
         
         let index = 0;
         data.forEach((item, i) => {
-            if(item.filename === props.filename){
+            if(item.time === props.time){
                 index = i
                 return
             }
@@ -48,6 +40,8 @@ const History = () => {
             let ff = item
             return i !== index 
         }))
+        localStorage.setItem("chosen", 0)
+        setch(0)
     }
 
     function onSearchText(text){
@@ -71,8 +65,8 @@ const History = () => {
                 <div className="history__archived__route__filename">{props.filename}</div>
                 <div className="history__archived__route__wrapper__icons">
                     <img alt="" onClick={()=>{
-                        onFavoriteClick(props)
-                        }}  src={props.favorite ? "SelectedStar.svg" : "Star.svg"} className="history__archived__route__btn"/>
+                        onFavoriteClick(i)
+                        }}  src={i === ch ? "SelectedStar.svg" : "Star.svg"} className="history__archived__route__btn"/>
                     <img alt="" src="close.svg" onClick={()=>{onRemoveClick(props)}} className="history__archived__route__btn"/>
                 </div>
             </div>

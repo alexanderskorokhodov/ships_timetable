@@ -17,10 +17,14 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        margin-bottom: 0.3em;
         .top-title {
             margin-right: 1em;
             font-size: medium;
             font-weight: 600;
+        }
+        img {
+            border-radius: 5px;
         }
     }
     .cruises {
@@ -32,7 +36,8 @@
             user-select: auto;
         }
         .cruise:hover {
-            border: 2px solid black;
+            // border: 2px solid black;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10);
             background: rgba(255, 255, 255, 0.3);
         }
         .cruise-id {

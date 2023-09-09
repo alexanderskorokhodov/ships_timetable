@@ -1,11 +1,15 @@
 import "./index.scss";
 import React, { useEffect } from "react";
-import { YMaps, Map, GeoObject, TypeSelector, Placemark } from "@pbe/react-yandex-maps";
+import { YMaps, Map, GeoObject, TypeSelector, Placemark, Button } from "@pbe/react-yandex-maps";
 import MapWindow from "../../Components/MapWindow";
+import Weather from "../../Components/WeatherButton"
 
 function Home() {
-
   
+  Number(localStorage.getItem("chosen"))
+  if (JSON.parse(localStorage.getItem("cached_data")).length <= 0) {
+
+  }
 
   const json_data = {
     "type": "FeatureCollection",
@@ -296,7 +300,6 @@ function Home() {
     />)
   });
 
-  
 
   return (
     <div className="mapPage">
@@ -374,6 +377,7 @@ hintContent="Саббета 2"
         />
             </Map>
             <MapWindow/>
+            <Weather/>
           </YMaps>
     </div>
   );

@@ -27,6 +27,9 @@ function App() {
   if (localStorage.getItem("cached_data") === null) {
     localStorage.setItem("cached_data", "[]")
   }
+  if (localStorage.getItem("chosen") === null) {
+    localStorage.setItem("chosen", 0)
+  }
 
   return (
     <div className={`App`}>

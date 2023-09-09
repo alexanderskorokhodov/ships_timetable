@@ -11,6 +11,12 @@ import {
 import "gantt-task-react-pro/dist/index.css";
 
 function Home() {
+
+  let chosen = Number(localStorage.getItem("chosen"))
+  if (JSON.parse(localStorage.getItem("cached_data")).length <= 0) {
+    
+  }
+  
   let tasks = [
     {
       start: new Date(2023, 9, 2, 12),

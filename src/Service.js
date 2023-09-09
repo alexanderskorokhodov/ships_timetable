@@ -9,6 +9,8 @@ class Service{
         body: JSON.stringify({"name":JSON.stringify(data)})
       })
     }
+
+    async get_weather()
 }
 
 

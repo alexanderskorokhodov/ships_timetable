@@ -116,7 +116,7 @@ function MapWindow() {
       {state < 0 ? (
         <div className="recomendations">
           <div className="top">
-            <p className="top-title">Рекомендации для рейсов</p>
+            <p className="top-title">Маршруты</p>
             <img
               className="pointer"
               src={state === -2 ? "plus.svg" : "minus.svg"}
