@@ -10,7 +10,7 @@ class Service{
       })
     }
 
-    async get_weather()
+    // async get_weather()
 }
 
 
