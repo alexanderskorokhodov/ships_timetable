@@ -13,6 +13,7 @@ import Main from "./Pages/Main";
 import Timetable from "./Pages/Timetable";
 import Maps from "./Pages/Maps";
 import Navbar from "./Components/Navbar"
+import History from "./Pages/History";
 
 // router
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -33,6 +34,7 @@ function App() {
             <Route path="/" element={<Main/>} />
             <Route path="/maps" element={<Maps/>} />
             <Route path="/timetable" element={<Timetable/>} />
+            <Route path="/history" element={<History/>} />
           </Routes>
         </BrowserRouter>
     </div>
