@@ -40,7 +40,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Main/>} />
             <Route path="/maps" element={<Maps/>} />
-            <Route path="/timetable" element={<Timetable/>} />
+            <Route path="/timetable" element={
+               localStorage.getItem("cached_data") === "[]" ? <History/> : <Timetable/>
+            } />
             <Route path="/history" element={<History/>} />
             <Route path="/weather" element={<Weather/>} />
           </Routes>
