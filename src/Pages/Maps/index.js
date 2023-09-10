@@ -10,7 +10,7 @@ import {
 } from "@pbe/react-yandex-maps";
 import MapWindow from "../../Components/MapWindow";
 import Weather from "../../Components/WeatherButton";
-import WeatherInfo from "../../Components/WeatherView";
+// import WeatherInfo from "../../Components/WeatherView";
 import Service from "../../Service";
 
 const weatherData = [
@@ -213,6 +213,9 @@ const toCords =  {0:  [46.142578125, 69.93030017617484],
 14: [73.52874755859375, 68.66455067163206]}
 
 
+
+
+
 function Home() {
   const [showing, setShowing] = useState(false);
 
@@ -224,6 +227,7 @@ function Home() {
       : [];
 
   const [state, changeState] = useState(-1);
+  const [id, setId] = useState(0)
 
   const json_data = {
     type: "FeatureCollection",
@@ -535,6 +539,19 @@ function Home() {
     );
   });
 
+  const [time, setTime] = useState(Date.now());
+
+  useEffect(() => {
+    if (state >= 0){
+    const interval = setInterval(() => setTime(Date.now()), 1000);
+    return () => {
+      clearInterval(interval);
+      setId((id+1) % data[state][6].length)
+
+    };
+  }
+  }, []);
+
   return (
     <div className="mapPage">
       <YMaps>
@@ -545,8 +562,7 @@ function Home() {
         >
           {linesView}
           {state >= 0 ? <Placemark
-            hintContent="Саббета 2"
-            geometry={toCords[data[state][6][0]].reverse()}
+            geometry={toCords[data[state][6][id]].reverse()}
             options={{
               iconImageSize: [30, 30],
               draggable: false,
@@ -564,6 +580,7 @@ function Home() {
                 '<div class="loc-desc"><img alt="" src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>',
             }}
           /> : ""}
+          
           {showing ? weatherPlacemarks : ""}
           <TypeSelector options={{ float: "right" }} />
           <Placemark

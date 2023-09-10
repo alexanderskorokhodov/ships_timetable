@@ -4,7 +4,20 @@ import CruiseTable from "../CruiseTable"
 
 function MapWindow({json_data, changeState, state}) {
   
-  let cruisesView = json_data.map((element, id) => {
+  let cruisesView = json_data.map((el, id) => {
+
+    var options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      timezone: 'UTC'
+    };
+
+    let start = new Date(el[4]).toLocaleString("ru", options)
+    let end = new Date(el[5]).toLocaleString("ru", options)
+
     return (
       <div
         className="cruise pointer"
@@ -13,8 +26,8 @@ function MapWindow({json_data, changeState, state}) {
         }}
       >
         <p className="cruise-id">Рейс №{id+1}</p>
-        <p className="cruise-date">Начало: {element[4]}</p>
-        <p className="cruise-date">Конец: {element[4]}</p>
+        <p className="cruise-date">Начало: {start}</p>
+        <p className="cruise-date">Конец: {end}</p>
       </div>
     );
   });

@@ -12,58 +12,35 @@ import "gantt-task-react-pro/dist/index.css";
 
 function Home() {
 
-  let chosen = Number(localStorage.getItem("chosen"))
-  if (JSON.parse(localStorage.getItem("cached_data")).length <= 0) {
-    
-  }
+  const data =
+    JSON.parse(localStorage.getItem("cached_data")).length > 0
+      ? JSON.parse(localStorage.getItem("cached_data"))[
+          localStorage.getItem("chosen")
+        ].data
+      : [];
   
-  let tasks = [
-    {
-      start: new Date(2023, 9, 2, 12),
-      end: new Date(2023, 9, 2, 3),
-      name: "Idea",
-      id: "Task 0",
-      type: "task",
-      isDisabled: true,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-    {
-      start: new Date(2023, 9, 6, 12),
-      end: new Date(2023, 9, 14, 3),
-      name: "Idea",
-      id: "Task 0",
-      type: "task",
-      isDisabled: true,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-    {
-      start: new Date(2023, 9, 2, 23),
-      end: new Date(2023, 9, 3, 3),
-      name: "Idea",
-      id: "Task 0",
-      type: "task",
-      isDisabled: true,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-    {
-      start: new Date(2023, 9, 2, 12),
-      end: new Date(2023, 9, 5, 3),
-      name: "Idea",
-      id: "Task 0",
-      type: "task",
-      isDisabled: true,
-      styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-    {
-      start: new Date(2023, 9, 2, 12),
-      end: new Date(2023, 9, 4, 3),
-      name: "Idea",
-      id: "Task 0",
+  let tasks = data.map((el, id)=>{
+    let [syear, smonth, sday] = el[4].split(' ')[0].split('-').map((el)=>{return Number(el)})
+    let [shour, sminute] = el[4].split(' ')[1].split(':').slice(0, 2).map((el)=>{return Number(el)})
+    let [eyear, emonth, eday] = el[5].split(' ')[0].split('-').map((el)=>{return Number(el)})
+    let [ehour, eminute] = el[5].split(' ')[1].split(':').slice(0, 2).map((el)=>{return Number(el)})
+    console.log(syear)
+    var options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'long',
+      timezone: 'UTC'
+    };
+    return {
+      start: new Date(el[4]),
+      end: new Date(el[5]),
+      name: el[0],
+      id: id,
       type: "event",
       isDisabled: true,
       styles: { progressColor: "#ffbb54", progressSelectedColor: "#ff9e0d" },
-    },
-  ];
+    }
+  })
 
   useEffect(() => {
     var elements = document.getElementsByClassName("_WuQ0f");
