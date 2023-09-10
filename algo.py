@@ -1,4 +1,8 @@
-# In[56]:
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[435]:
+
 
 import datetime
 import pandas as pd
@@ -7,13 +11,13 @@ from datetime import timedelta
 import datetime
 
 
-# In[57]:
-def setting_path(path_to_file):
+# In[436]:
+def setting_path(file):
 
-    data_from_site = pd.read_csv(path_to_file)
+    data_from_site = pd.read_csv(file)
 
 
-    # In[58]:
+    # In[437]:
 
 
     data_from_site.loc[data_from_site['start_point'] == "точка в Баренцевом море", 'start_point'] = 0
@@ -47,14 +51,14 @@ def setting_path(path_to_file):
     data_from_site.loc[data_from_site['end_point'] == "Саббета 3 ", 'end_point'] = 10
 
 
-    # In[59]:
+    # In[438]:
 
 
     data_from_site["start"][33] = "16.01.2021 12:30"
     data_from_site["end"][34] = "01.02.2021 23:30"
 
 
-    # In[60]:
+    # In[439]:
 
 
     for i in range(len(data_from_site)):
@@ -62,7 +66,7 @@ def setting_path(path_to_file):
         data_from_site["end"][i] = datetime.datetime.strptime(data_from_site["end"][i], "%d.%m.%Y %H:%M")
 
 
-    # In[61]:
+    # In[440]:
 
 
     graph = {
@@ -181,7 +185,7 @@ def setting_path(path_to_file):
     }
 
 
-    # In[62]:
+    # In[441]:
 
 
     def find_all_paths(graph, start, end, path=[]):
@@ -211,19 +215,21 @@ def setting_path(path_to_file):
         data_way = list()
         for path in all_paths:
             time_way = data_start.hour + (data_start.minute / 60)
+            cheack_time = data_start.hour + (data_start.minute / 60)
             date_ice = day
             data_icelimint = list()
             for cords in range(len(path)-1):
                 distance = graph[path[cords]][path[cords+1]]['distance']
-                if int(time_way/24) > 0:
+                if int(cheack_time/24) > 0:
                     date_ice = date_ice + 1 
-                    time_way = time_way - 24
+                    cheack_time = cheack_time - 24
                     if date_ice == 30:
                         date_ice = 1
 
                 icelimint = graph[path[cords]][path[cords+1]]['speed_limit'][date_ice]
                 data_icelimint.append(icelimint)
                 time_way += get_time(distance, speed_sud, icelimint)
+                cheack_time += get_time(distance, speed_sud, icelimint)
             data_way.append([time_way, data_icelimint, path])
 
         data_way = sorted(data_way, key=lambda x: x[0])
@@ -256,7 +262,7 @@ def setting_path(path_to_file):
         return [[i[0], i[2], i[3]]for i in new_data_way]
 
     def ledokol_time_way(point_start, poitn_end):
-        all_paths = find_all_paths(graph, start_node, end_node)
+        all_paths = find_all_paths(graph, point_start, poitn_end)
         speed = 9
 
         ledokol_time = list()
@@ -272,7 +278,7 @@ def setting_path(path_to_file):
         return ledokol_time[0]
 
 
-    # In[63]:
+    # In[442]:
 
 
     index_delete = list()
@@ -284,19 +290,19 @@ def setting_path(path_to_file):
         time_end = data_from_site['end'][item]
         
         for path in way_data:
-            predict_time = time_start + timedelta(hours=path[0])
+            predict_time = time_start + timedelta(hours=path[0]) - timedelta(hours=48)
             if all([predict_time <= time_end, path[-1] == 0]):
                 index_delete.append(item)
                 break
 
 
-    # In[64]:
+    # In[443]:
 
 
     data_for_push = list()
 
 
-    # In[65]:
+    # In[444]:
 
 
     for item in index_delete:
@@ -307,16 +313,56 @@ def setting_path(path_to_file):
         time_end = data_from_site['end'][item]
         
         for path in way_data:
-            predict_time = time_start + timedelta(hours=path[0])
+            predict_time = time_start + timedelta(hours=path[0]) - timedelta(hours=48)
             if all([predict_time <= time_end, path[-1] == 0]):
                 data_for_push.append([data_from_site['Наименование'][item], data_from_site['IMO'][item],
                                     data_from_site['Ледовый класс'][item], data_from_site['Скорость'][item],
                                     time_start.strftime('%Y-%m-%d %H:%M:%S'), predict_time.strftime('%Y-%m-%d %H:%M:%S'), path[1]])
                 break
-    
+
+
+    # In[445]:
+
+
+    data_from_site = data_from_site.drop(index_delete).reset_index(drop=True)
+
+
+    # In[446]:
+
+    # In[447]:
+
+    l = len(data_from_site['IMO'])*4 # Длина бота
+    bot = np.load('bot_2.npy')
+    ledokol_start_with = list()
+    for i in range(l//4):
+        if bot[i] >= 0:
+            ledokol_start_with.append([1,bot[i]])
+    for i in range(l//4,l//2):
+        if bot[i] >= 0:
+            ledokol_start_with.append([2,bot[i]])
+    for i in range(l//2,l//4*3):
+        if bot[i] >= 0:
+            ledokol_start_with.append([3,bot[i]])
+    for i in range(l//4*3,l):
+        if bot[i] >= 0:
+            ledokol_start_with.append([4,bot[i]])
+
+
+    # In[457]:
+
+
+    for reis in ledokol_start_with:
+        waste_time = ledokol_time_way(data_from_site['start_point'][reis[1]], data_from_site['end_point'][reis[1]])
+        
+        time_start = data_from_site['start'][reis[1]]
+        predict_time = data_from_site['start'][reis[1]] + timedelta(hours=waste_time[0])
+        data_for_push.append([data_from_site['Наименование'][reis[1]], data_from_site['IMO'][reis[1]],
+                            data_from_site['Ледовый класс'][reis[1]], data_from_site['Скорость'][reis[1]],
+                            time_start.strftime('%Y-%m-%d %H:%M:%S'), predict_time.strftime('%Y-%m-%d %H:%M:%S'), waste_time[1]])
+
+
+    # In[459]:
+    print(data_for_push)
+
+
     return data_for_push
-
-
-
-
-
