@@ -539,18 +539,18 @@ function Home() {
     );
   });
 
-  const [time, setTime] = useState(Date.now());
+  // const [time, setTime] = useState(Date.now());
 
-  useEffect(() => {
-    if (state >= 0){
-    const interval = setInterval(() => setTime(Date.now()), 1000);
-    return () => {
-      clearInterval(interval);
-      setId((id+1) % data[state][6].length)
+  // useEffect(() => {
+  //   if (state >= 0){
+  //   const interval = setInterval(() => setTime(Date.now()), 1000);
+  //   return () => {
+  //     clearInterval(interval);
+  //     setId((id+1) % data[state][6].length)
 
-    };
-  }
-  }, []);
+  //   };
+  // }
+  // }, []);
 
   return (
     <div className="mapPage">
