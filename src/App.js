@@ -14,6 +14,7 @@ import Timetable from "./Pages/Timetable";
 import Maps from "./Pages/Maps";
 import Navbar from "./Components/Navbar"
 import History from "./Pages/History";
+import Weather from "./Pages/Weather/Weather";
 
 // router
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -41,6 +42,7 @@ function App() {
             <Route path="/maps" element={<Maps/>} />
             <Route path="/timetable" element={<Timetable/>} />
             <Route path="/history" element={<History/>} />
+            <Route path="/weather" element={<Weather/>} />
           </Routes>
         </BrowserRouter>
     </div>

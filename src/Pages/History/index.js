@@ -22,6 +22,12 @@ const History = () => {
         onChange(!change)
     }
 
+    function onFilterClick(){
+        service.getWeatherByOffset(30,30).then(res => {
+            console.log(res)
+        })
+    }
+
     function onFavoriteClick(i){
         localStorage.setItem("chosen", i)
         setch(i)
@@ -91,7 +97,7 @@ const History = () => {
                             onSearchText(text.target.value)
                         }} type="text" id="name" value={searchText}/>
                         <div className="history__search__wrap__filter">
-                          <img src="Filter.svg" onClick={() => {setShowingFilters(!showFilters)}} className="history__search__filter__btn"/>
+                          <img src="Filter.svg" onClick={() => {onFilterClick()}} className="history__search__filter__btn"/>
                           <div className="history__search__group__filters">
                            
                             <div className="history__search__group__filter">
