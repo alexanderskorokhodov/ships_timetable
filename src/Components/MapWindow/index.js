@@ -2,114 +2,23 @@ import React, { useState } from "react";
 import "./index.scss";
 import CruiseTable from "../CruiseTable"
 
-function MapWindow() {
-  const json_data = [
-    {
-      id: 1,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 2,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 3,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 4,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 5,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 6,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 7,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-    {
-      id: 8,
-      start: "Пт, 1 сентября 2023",
-      end: "Пт, 1 сентября 2023",
-      name: "YAMAL",
-      IMO: "9752084",
-      MMSI: "33187510",
-      velocity: "15",
-      start_point: "точка в Баренцевом море",
-      end_point: "Саббета 3",
-    },
-  ];
-
-  let cruisesView = json_data.map((element) => {
+function MapWindow({json_data, changeState, state}) {
+  
+  let cruisesView = json_data.map((element, id) => {
     return (
       <div
         className="cruise pointer"
         onClick={() => {
-          changeState(json_data.indexOf(element));
+          changeState(id);
         }}
       >
-        <p className="cruise-id">Рейс №{element.id}</p>
-        <p className="cruise-date">Начало: {element.start}</p>
-        <p className="cruise-date">Конец: {element.end}</p>
+        <p className="cruise-id">Рейс №{id+1}</p>
+        <p className="cruise-date">Начало: {element[4]}</p>
+        <p className="cruise-date">Конец: {element[4]}</p>
       </div>
     );
   });
 
-  const [state, changeState] = useState(-1);
 
   return (
     <div className="floatwindow">
@@ -130,7 +39,7 @@ function MapWindow() {
       ) : (
         <div className="cruiseinfo">
           <div className="top">
-            <h4>Рейс №{json_data[state].id}</h4>
+            <h4>Рейс №{state+1}</h4>
             <img
               className="pointer"
               src="close.svg"

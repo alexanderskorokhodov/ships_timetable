@@ -1,7 +1,7 @@
 class Service{
 
   async upload(data){
-    return fetch("https://f90e-95-167-228-54.ngrok.io/uploadfile", 
+    return fetch("https://5d5e-95-167-228-54.ngrok.io/uploadfile", 
     {
       method:'POST', 
       headers: {"Accept": "application/json", "Content-type": "application/json"},
@@ -10,7 +10,7 @@ class Service{
   }
 
   async getWeatherByOffset(x, y){
-    return await fetch(`https://5aa7-95-167-228-54.ngrok.io/getWeather`, {
+    return await fetch(`hhttps://5d5e-95-167-228-54.ngrok.io/getWeather`, {
       method:'POST', 
       headers: {"Accept": "application/json", "Content-type": "application/json"},
       body: JSON.stringify({"x":x, "y":y})

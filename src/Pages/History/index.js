@@ -23,9 +23,9 @@ const History = () => {
     }
 
     function onFilterClick(){
-        service.getWeatherByOffset(30,30).then(res => {
-            console.log(res)
-        })
+        // service.getWeatherByOffset(30,30).then(res => {
+        //     console.log(res)
+        // })
     }
 
     function onFavoriteClick(i){
@@ -60,8 +60,18 @@ const History = () => {
     }
 
     const onAdded = (arr) => {
-        setData(JSON.parse(localStorage.getItem("cached_data")))
-        service.upload(arr).then(()=>{window.location.reload()})
+        let _data = JSON.parse(localStorage.getItem("cached_data"))
+        service.upload(arr).then(res=>{
+            res.json().then(re => {
+                re = String(re).replaceAll("'", '"')
+                console.log(re)
+                re = JSON.parse(re)
+                arr.data = re
+                _data.push(arr)
+                localStorage.setItem("cached_data", JSON.stringify(_data))
+                setData(_data)
+                window.location.reload()
+            })})
         
     }
     // useEffect(()=>{}, data)
@@ -97,11 +107,11 @@ const History = () => {
                             onSearchText(text.target.value)
                         }} type="text" id="name" value={searchText}/>
                         <div className="history__search__wrap__filter">
-                          <img src="Filter.svg" onClick={() => {onFilterClick()}} className="history__search__filter__btn"/>
+                          <img alt="" src="Filter.svg" onClick={() => {onFilterClick()}} className="history__search__filter__btn"/>
                           <div className="history__search__group__filters">
                            
                             <div className="history__search__group__filter">
-                                <img src="check.svg" />
+                                <img alt=""src="check.svg" />
                                 <div className="history__archived__route__text">Избранные</div>
                             </div>
                           </div>

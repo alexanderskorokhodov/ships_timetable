@@ -11,27 +11,219 @@ import {
 import MapWindow from "../../Components/MapWindow";
 import Weather from "../../Components/WeatherButton";
 import WeatherInfo from "../../Components/WeatherView";
+import Service from "../../Service";
 
-const weatherPoints = [
-  [77.383643, 68.678616],
-  [75.916033, 52.623848],
-  [73.186969, 47.931851],
-  [71.015377, 49.613523],
-  [70.356589, 58.090523],
-  [69.363378, 33.6548],
-  [73.646068, 64.650996],
-  [73.617635, 72.651019],
-  [72.368878, 73.79388],
-  [71.482035, 73.087996],
-  [68.617355, 73.995561],
-  [66.459305, 71.911522],
+const weatherData = [
+  [
+    77.383643,
+    68.678616,
+    "Карское море",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc.svg",
+    "Облачно",
+    745,
+    87,
+    -10,
+    13.8,
+  ],
+  [
+    75.916033,
+    52.623848,
+    "Баренцево море",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc_-ra.svg",
+    "Пасмурно",
+    746,
+    97,
+    -1,
+    12.3,
+  ],
+  [
+    73.186969,
+    47.931851,
+    "Баренцево море",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc.svg",
+    "Облачно",
+    746,
+    93,
+    -1,
+    16.6,
+  ],
+  [
+    71.015377,
+    49.613523,
+    "Баренцево море",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc.svg",
+    "Облачно",
+    753,
+    93,
+    2,
+    13.1,
+  ],
+  [
+    70.356589,
+    58.090523,
+    "пролив Карские Ворота",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc.svg",
+    "Пасмурно",
+    755,
+    94,
+    3,
+    9.5,
+  ],
+  [
+    69.363378,
+    33.6548,
+    "Мурманск",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/bkn_d.svg",
+    "Облачно с прояснениями",
+    749,
+    71,
+    12,
+    13.6,
+  ],
+  [
+    73.646068,
+    64.650996,
+    "Карское море",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc_-ra.svg",
+    "Небольшой дождь",
+    751,
+    90,
+    1,
+    13,
+  ],
+  [
+    73.617635,
+    72.651019,
+    "Карское море",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc.svg",
+    "Пасмурно",
+    750,
+    89,
+    0,
+    12.3,
+  ],
+  [
+    72.368878,
+    73.79388,
+    "Обская губа",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc_-ra.svg",
+    "Небольшой дождь",
+    750,
+    91,
+    2,
+    10.8,
+  ],
+  [
+    71.482035,
+    73.087996,
+    "полуостров Явай",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc_-ra.svg",
+    "Небольшой дождь",
+    754,
+    94,
+    6,
+    9,
+  ],
+  [
+    68.617355,
+    73.995561,
+    "Обская губа",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc_-ra.svg",
+    "Небольшой дождь",
+    759,
+    81,
+    8,
+    1,
+  ],
+  [
+    66.459305,
+    71.911522,
+    "Обская губа",
+    "https://yastatic.net/weather/i/icons/confident/dark/svg/ovc.svg",
+    "Пасмурно",
+    759,
+    77,
+    4,
+    5,
+  ],
 ];
+const service = new Service();
+
+const toRoad = {
+  "01": 2,
+  "05": 1,
+  "54": 6,
+  "43": 5,
+  "12": 4,
+  "23": 3,
+  "36": 7,
+  '67': 8,
+  "78": 9,
+  "89": 10,
+  "910": 11,
+  "911": 12,
+  "1112": 13,
+  "1113": 14,
+  "10": 2,
+  "50": 1,
+  "45": 6,
+  "34": 5,
+  "21": 4,
+  "32": 3,
+  "63": 7,
+  '76': 8,
+  "87": 9,
+  "98": 10,
+  "109": 11,
+  "119": 12,
+  "1211": 13,
+  "1311": 14,
+};
+
+const toCords =  {0:  [46.142578125, 69.93030017617484],
+
+1:[57.74414062500001, 70.4367988185464],
+
+2: [66.20361328125, 73.53462847039683],
+
+3: [71.54296874999999, 73.77577986189993],
+
+5: [55.01953125, 76.2059670431415],
+
+6: [68.90625, 77.44694030325893],
+
+
+7: [73.125, 72.76406472320436],
+
+8: [74.02587890625, 72.63337363853837],
+
+9: [72.92724609375, 72.0739114882038],
+
+11: [72.59765625, 71.30783606806223],
+
+
+10: [72.2021484375, 71.24435551310674],
+
+13: [73.32275390625, 70.9722375547307],
+
+
+12: [73.7127685546875, 71.03303495416577],
+
+
+14: [73.52874755859375, 68.66455067163206]}
+
 
 function Home() {
   const [showing, setShowing] = useState(false);
-  Number(localStorage.getItem("chosen"));
-  if (JSON.parse(localStorage.getItem("cached_data")).length <= 0) {
-  }
+
+  const data =
+    JSON.parse(localStorage.getItem("cached_data")).length > 0
+      ? JSON.parse(localStorage.getItem("cached_data"))[
+          localStorage.getItem("chosen")
+        ].data
+      : [];
+
+  const [state, changeState] = useState(-1);
 
   const json_data = {
     type: "FeatureCollection",
@@ -39,7 +231,7 @@ function Home() {
       {
         type: "Feature",
         properties: {
-          id: 1,
+          id: 2,
         },
         geometry: {
           type: "LineString",
@@ -52,7 +244,7 @@ function Home() {
       {
         type: "Feature",
         properties: {
-          id: 2,
+          id: 4,
         },
         geometry: {
           type: "LineString",
@@ -78,7 +270,7 @@ function Home() {
       {
         type: "Feature",
         properties: {
-          id: 4,
+          id: 1,
         },
         geometry: {
           type: "LineString",
@@ -91,7 +283,7 @@ function Home() {
       {
         type: "Feature",
         properties: {
-          id: 5,
+          id: 6,
         },
         geometry: {
           type: "LineString",
@@ -104,7 +296,7 @@ function Home() {
       {
         type: "Feature",
         properties: {
-          id: 6,
+          id: 5,
         },
         geometry: {
           type: "LineString",
@@ -222,50 +414,71 @@ function Home() {
   };
   let linesView = [];
   json_data.features.forEach((element) => {
-    linesView.push(
-      <GeoObject
-        geometry={{
-          type: "LineString",
-          coordinates: [
-            element.geometry.coordinates[0].reverse(),
-            element.geometry.coordinates[1].reverse(),
-          ],
-        }}
-        options={{
-          geodesic: true,
-          strokeWidth: 4,
-          strokeColor: "#00FF7F",
-        }}
-      />
-    );
+    console.log(data, state);
+    let new_ = [];
+    if (state >= 0) {
+      for (let i = 0; i + 1 < data[state][6].length; i++) {
+        new_.push(
+          toRoad[String(data[state][6][i]) + String(data[state][6][i + 1])]
+        );
+      }
+      console.log(data[6]);
+      if (state >= 0 && new_.includes(element.properties.id)) {
+        return linesView.push(
+          <GeoObject
+            geometry={{
+              type: "LineString",
+              coordinates: [
+                element.geometry.coordinates[0].reverse(),
+                element.geometry.coordinates[1].reverse(),
+              ],
+            }}
+            options={{
+              geodesic: true,
+              strokeWidth: 4,
+              strokeColor: "#00FF7F",
+            }}
+          />
+        );
+      } else {
+        return linesView.push(
+          <GeoObject
+            displayName={element.properties.id}
+            geometry={{
+              type: "LineString",
+              coordinates: [
+                element.geometry.coordinates[0].reverse(),
+                element.geometry.coordinates[1].reverse(),
+              ],
+            }}
+            options={{
+              geodesic: true,
+              strokeWidth: 4,
+              strokeColor: "#142782",
+            }}
+          />
+        );
+      }
+    }
   });
 
-  const weatherPlacemarks = weatherPoints.map((element) => {
-    const props = {
-      title: "Мурманск",
-      temp: -9,
-      percents: 70,
-      ms: 5,
-      pressure: 762,
-      weather_status: "Light Snow",
-    };
+  const weatherPlacemarks = weatherData.map((el) => {
+    // console.log(weather_data)
     return (
       <Placemark
-        hintContent="Саббета 2"
-        geometry={element}
+        geometry={[el[0], el[1]]}
         options={{
-          iconImageSize: [30, 30],
+          iconImageSize: [50, 50],
           draggable: false,
           preset: "islands#greenIcon",
           // hideIconOnBalloonOpen: false,
-          openEmptyHint: true,
+          openEmptyHint: false,
 
           iconLayout: "default#image",
           // Своё изображение иконки метки.
-          iconImageHref: "weather1.svg",
+          iconImageHref: el[3],
         }}
         properties={{
-          hintContent: "Саббета 3",
           balloonContent: `<div classname="weather" style="
           margin: 5px;
           padding:10px;
@@ -276,7 +489,7 @@ function Home() {
           flex-direction: column;
           justify-content: space-between;
           "> <div classname="weather__title" style="color: #2F46B7;
-          font-size: 16px;">${props.title}</div> <div classname="weather__wrapper" style="
+          font-size: 16px;">${el[2]}</div> <div classname="weather__wrapper" style="
           display: flex;
           flex-direction: row;
           height: 150px;
@@ -289,31 +502,31 @@ function Home() {
         justify-content: space-between;align-items: center;
     ">
                 <div classname="weather__temperature_title" style="color: #2F46B7;
-                font-size: 50px;margin-top:30px;">${props.temp}°</div>
+                font-size: 50px;margin-top:30px;">${el[7]}°</div>
                 <div style="display:flex;align-items: center;flex-direction:column;">
                 <div classname="weather__temperature_props_title" style="color: #BFD0FF;
                 font-size: 16px;
-                margin-bottom: 2px;">${props.percents}%</div>
+                margin-bottom: 2px;">${el[6]}%</div>
                 <div classname="weather__temperature_props_title" style="color: #BFD0FF;
                 font-size: 16px;
-                margin-bottom: 2px;">${props.ms} м/с</div>
+                margin-bottom: 2px;">${el[8]} м/с</div>
                 <div classname="weather__temperature_props_title" style="color: #BFD0FF;
                 font-size: 16px;
-                margin-bottom: 2px;">${props.pressure} мм.</div></div>
+                margin-bottom: 2px;">${el[5]} мм.</div></div>
               </div>
               <div classname="weather__wrap__visual" style="  
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;align-items: center;
         flex:3;">
-                  <img src="weather1.svg" classname="weather__icon" style="
+                  <img src=${el[3]} classname="weather__icon" style="
                   width: 56px;
                   height: 56px;">
                   <div classname="weather__status__title" style="color: #2F46B7;
                   font-size: 18px;
                   line-height: 110%;
                   font-weight: 300;
-                  margin-left: 6px;">Light Snow</div>
+                  margin-left: 6px;">${el[4]}</div>
               </div>
           </div>
       </div>`,
@@ -331,6 +544,26 @@ function Home() {
           modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
         >
           {linesView}
+          {state >= 0 ? <Placemark
+            hintContent="Саббета 2"
+            geometry={toCords[data[state][6][0]].reverse()}
+            options={{
+              iconImageSize: [30, 30],
+              draggable: false,
+              preset: "islands#greenIcon",
+              // hideIconOnBalloonOpen: false,
+              openEmptyHint: true,
+
+              iconLayout: "default#image",
+              // Своё изображение иконки метки.
+              iconImageHref: "ship.svg",
+            }}
+            properties={{
+              hintContent: data[state][0],
+              balloonContent:
+                '<div class="loc-desc"><img alt="" src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>',
+            }}
+          /> : ""}
           {showing ? weatherPlacemarks : ""}
           <TypeSelector options={{ float: "right" }} />
           <Placemark
@@ -381,11 +614,11 @@ function Home() {
             properties={{
               hintContent: "Саббета 3",
               balloonContent:
-                '<div class="loc-desc"><img src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>',
+                '<div class="loc-desc"><img alt="" src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>',
             }}
           />
         </Map>
-        <MapWindow />
+        <MapWindow changeState={changeState} state={state} json_data={data} />
         <Weather showing={showing} setShowing={setShowing} />
       </YMaps>
     </div>

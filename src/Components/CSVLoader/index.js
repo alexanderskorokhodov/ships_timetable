@@ -18,15 +18,15 @@ function App({onAdded}) {
         // data_ = data_.slice(1)
         // console.log(data_)
         setData(data_);
-        let cached = localStorage.getItem("cached_data")
-        if (cached === null) {
-          cached = []
-        } else {
-          cached = JSON.parse(cached)
-        }
-        cached.push({data: data_, time: date, filename: file.name})
+        // let cached = localStorage.getItem("cached_data")
+        // if (cached === null) {
+        //   cached = []
+        // } else {
+        //   cached = JSON.parse(cached)
+        // }
+        // cached.push({data: data_, time: date, filename: file.name})
         onAdded({data: data_, time: date, filename: file.name})
-        localStorage.setItem("cached_data", JSON.stringify(cached));
+        // localStorage.setItem("cached_data", JSON.stringify(cached));
         // console.log(JSON.parse(localStorage.getItem("cached_data")))
       };
       reader.onerror = (err) => {
