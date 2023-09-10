@@ -186,31 +186,31 @@ const toCords =  {0:  [46.142578125, 69.93030017617484],
 
 2: [66.20361328125, 73.53462847039683],
 
+
+5:  [55.01953125, 76.2059670431415],
+
+4: [68.90625, 77.44694030325893],
+
 3: [71.54296874999999, 73.77577986189993],
 
-5: [55.01953125, 76.2059670431415],
+6: [73.125, 72.76406472320436],
 
-6: [68.90625, 77.44694030325893],
+7: [74.02587890625, 72.63337363853837],
 
+8: [72.92724609375, 72.0739114882038],
 
-7: [73.125, 72.76406472320436],
-
-8: [74.02587890625, 72.63337363853837],
-
-9: [72.92724609375, 72.0739114882038],
-
-11: [72.59765625, 71.30783606806223],
+9: [72.59765625, 71.30783606806223],
 
 
 10: [72.2021484375, 71.24435551310674],
 
-13: [73.32275390625, 70.9722375547307],
+12: [73.32275390625, 70.9722375547307],
 
 
-12: [73.7127685546875, 71.03303495416577],
+11: [73.7127685546875, 71.03303495416577],
 
 
-14: [73.52874755859375, 68.66455067163206]}
+13: [73.52874755859375, 68.66455067163206]}
 
 
 
@@ -227,7 +227,7 @@ function Home() {
       : [];
 
   const [state, changeState] = useState(-1);
-  const [id, setId] = useState(0)
+  // const [id, setId] = useState(0)
 
   const json_data = {
     type: "FeatureCollection",
@@ -418,7 +418,7 @@ function Home() {
   };
   let linesView = [];
   json_data.features.forEach((element) => {
-    console.log(data, state);
+    // console.log(data, state);
     let new_ = [];
     if (state >= 0) {
       for (let i = 0; i + 1 < data[state][6].length; i++) {
@@ -539,18 +539,42 @@ function Home() {
     );
   });
 
-  // const [time, setTime] = useState(Date.now());
+  let timer
+  const [count, setCount] = useState(0)
+  
+  const updateCount = () => {
+    timer = !timer && setInterval(() => {
+      console.log('ticking') 
+        setCount(prevCount => ((prevCount + 1) % 9)) 
+      // new
+    }, 1000)
+  }
+  
+  useEffect(() => {
+    updateCount()
+    
+    return () => clearInterval(timer)
+  }, [])
+  
+  let caravan =  (state >= 0 ? <Placemark
+  geometry={[toCords[data[state][6][count]][1], toCords[data[state][6][count]][0]]}
+  options={{
+    iconImageSize: [30, 30],
+    draggable: false,
+    preset: "islands#greenIcon",
+    // hideIconOnBalloonOpen: false,
+    openEmptyHint: true,
 
-  // useEffect(() => {
-  //   if (state >= 0){
-  //   const interval = setInterval(() => setTime(Date.now()), 1000);
-  //   return () => {
-  //     clearInterval(interval);
-  //     setId((id+1) % data[state][6].length)
-
-  //   };
-  // }
-  // }, []);
+    iconLayout: "default#image",
+    // Своё изображение иконки метки.
+    iconImageHref: "ship.svg",
+  }}
+  properties={{
+    hintContent: data[state][0],
+    balloonContent:
+      '<div class="loc-desc"><img alt="" src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>',
+  }}
+/> : "")
 
   return (
     <div className="mapPage">
@@ -561,25 +585,7 @@ function Home() {
           modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
         >
           {linesView}
-          {state >= 0 ? <Placemark
-            geometry={toCords[data[state][6][id]].reverse()}
-            options={{
-              iconImageSize: [30, 30],
-              draggable: false,
-              preset: "islands#greenIcon",
-              // hideIconOnBalloonOpen: false,
-              openEmptyHint: true,
-
-              iconLayout: "default#image",
-              // Своё изображение иконки метки.
-              iconImageHref: "ship.svg",
-            }}
-            properties={{
-              hintContent: data[state][0],
-              balloonContent:
-                '<div class="loc-desc"><img alt="" src="tate.png"  style="border-radius:20px;width:100px;height: 100px"/></div>',
-            }}
-          /> : ""}
+           {caravan}
           
           {showing ? weatherPlacemarks : ""}
           <TypeSelector options={{ float: "right" }} />
@@ -598,6 +604,21 @@ function Home() {
               iconImageHref: "point.png",
             }}
             properties={{ hintContent: "Саббета 1" }}
+          />
+          <Placemark
+            geometry={[71.03303495416577, 73.7127685546875]}
+            options={{
+              iconImageSize: [30, 30],
+              draggable: false,
+              preset: "islands#greenIcon",
+
+              iconLayout: "default#image",
+              // Своё изображение иконки метки.
+              iconImageHref: "point.png",
+            }}
+            properties={{
+              hintContent: "Саббета 2",
+            }}
           />
           <Placemark
             geometry={[71.03303495416577, 73.7127685546875]}
