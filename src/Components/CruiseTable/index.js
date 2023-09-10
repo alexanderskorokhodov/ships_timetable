@@ -5,9 +5,15 @@ function Component(data) {
 
 const toRus = {"id": "ID", "start": "Начало", "end": "Конец", "name": "Название", "start_point": "Начальная точка", "end_point": "Конечная точка", "IMO": "IMO", "MMSI": "MMSI", "velocity": "Скорость"}
 
-  data = Object.entries(data).map((element) => {
+  function getName(index){
+    const  array = ["Наименование","Ледовый класс","Пункт начала плавания", "Пункт окончания плавания","Дата и время начала плавания","Дата и время окончания плавания"]
+    return array[index]
+  }
+
+  data = Object.entries(data).map((element, index) => {
+    if(index == Object.entries(data).length-1) return
     return  <tr className="table-row">
-        <th className="table-box key"><p>{toRus[element[0]]}</p></th>
+        <th className="table-box key"><p>{getName(index)} {toRus[element[0]]}</p></th>
         <th className="table-box value"><p>{element[1]}</p></th>
       </tr>
   });
