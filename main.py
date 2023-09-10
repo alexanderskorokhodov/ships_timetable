@@ -118,7 +118,7 @@ async def create_item(array: Item):
         for row in data:
             writer.writerow(row)
 
-    return algo.setting_path(csv_file_path)
+    return str(algo.setting_path(csv_file_path))
 
 
 @app.post("/getWeather")
